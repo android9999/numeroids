@@ -1,0 +1,2 @@
+bgColor: 00020A
+asteroidsColors: C301FE, FC9903, FEFE01
