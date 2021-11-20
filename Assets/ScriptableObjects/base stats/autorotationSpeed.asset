@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: autorotationSpeed
   m_EditorClassIdentifier: 
   statName: 5
-  increment: 50
-  _incrementPrice: 100
+  increment: 25
+  increment2: 100
+  startingPrice: 100
+  startingValue: 100
+  _incrementPrice: 600

@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statName: 7
   increment: 1
-  _incrementPrice: 100
+  increment2: 250
+  startingPrice: 100
+  startingValue: 1
+  _incrementPrice: 1250

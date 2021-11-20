@@ -15,4 +15,6 @@ MonoBehaviour:
   statName: 3
   increment: 1
   increment2: 50
+  startingPrice: 100
+  startingValue: 1
   _incrementPrice: 100

@@ -62,13 +62,13 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
     // Update is called once per frame
     void SelectAction()
     {
-        GetComponent<Image>().color = Color.white;
-        transform.GetChild(0).gameObject.GetComponent<TMP_Text>().color = Color.black;
+        //GetComponent<Image>().color = Color.white;
+        //transform.GetChild(0).gameObject.GetComponent<TMP_Text>().color = Color.black;
     }
 
     void DeselectAction()
     {
-        GetComponent<Image>().color = Color.black;
-        transform.GetChild(0).gameObject.GetComponent<TMP_Text>().color = Color.white;
+        //GetComponent<Image>().color = Color.black;
+        //transform.GetChild(0).gameObject.GetComponent<TMP_Text>().color = Color.white;
     }
 }

@@ -8,6 +8,8 @@ using UnityEngine.Events;
 public class GameManager : MonoBehaviour
 {
 
+    public bool giveConsumables = false;
+
     public Player player;
     public ParticleSystem explosionEffect;
     public GameObject shopPanel;
@@ -17,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     int score = 0;
 
-    public int Score { get { return score; } private set { score = value; CheckButtons(); scoreText.text = value.ToString(); } }
+    public int Score { get { return score; } private set { score = value; if (score < 0) score = 0; score -= score % 25; CheckButtons(); scoreText.text = value.ToString(); } }
 
 
 
@@ -91,25 +93,19 @@ public class GameManager : MonoBehaviour
 
     public static float tapConsumablesDropRate = 1;
 
+    public Stat[] stats;
+
     private void SetStats()
     {
-        if (PlayerPrefs.HasKey("startingLives"))
-        {
-            startingLives = (int)PlayerPrefs.GetFloat("startingLives");
-        }
-
-        else
-        {
-            startingLives = 1;
-        }
-
+        startingLives = (int)PlayerPrefs.GetFloat("startingLives");
+        
         invincibilityTime = PlayerPrefs.GetFloat("invincibilityTime");
 
-        fireRate = PlayerPrefs.GetFloat("fireRate");
+        fireRate = Mathf.Sqrt(PlayerPrefs.GetFloat("fireRate"));
 
         damage = (int)PlayerPrefs.GetFloat("damage");
 
-        speed = PlayerPrefs.GetFloat("speed");
+        speed = PlayerPrefs.GetFloat("speed")/2;
 
         mass = PlayerPrefs.GetFloat("mass");
 
@@ -121,13 +117,27 @@ public class GameManager : MonoBehaviour
 
         offlineRevenue = PlayerPrefs.GetFloat("offlineRevenue");
 
-        timeScale = PlayerPrefs.GetFloat("timeScale") + 1;
+        timeScale = Mathf.Sqrt(PlayerPrefs.GetFloat("timeScale") + 1);
 
         Time.timeScale = timeScale;
     }
 
+    void SetLabelsPrice()
+    {
+        int i = 0;
+
+        foreach (TMP_Text priceLabel in priceLabels)
+        {
+            priceLabels[i].text = (PlayerPrefs.GetInt(stats[i].statName.ToString() + "Price")).ToString();
+
+            i++;
+        }
+    }
+
     private void Start()
     {
+        SetLabelsPrice();
+
         CheckConsumables();
 
         NewGame();
@@ -198,7 +208,7 @@ public class GameManager : MonoBehaviour
         }
 
         bool instantiateConsumable = asteroid.size > UnityEngine.Random.Range(0, 1000);
-        if (instantiateConsumable)
+        if (instantiateConsumable && giveConsumables)
         {
             Debug.Log("Consumable Should Be Aviable");
 
@@ -242,11 +252,14 @@ public class GameManager : MonoBehaviour
         Score = PlayerPrefs.GetInt("score");
     }
 
-    public void IncrementScore(int gainedScore)
+    public void IncrementScore(int gainedScore, bool incrementexp = true)
     {
         PlayerPrefs.SetInt("score", PlayerPrefs.GetInt("score") + gainedScore);
 
-        expSystem.CurrentExp += gainedScore;
+        if (incrementexp)
+        {
+            expSystem.CurrentExp += gainedScore;
+        }
 
         gainedScores.Add(gainedScore);
 
@@ -456,6 +469,12 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
 
+        foreach (Stat stat in stats)
+        {
+            stat.SetStartingValues();
+        }
+
+        /*
         PlayerPrefs.SetFloat("startingLives", 1);
 
         PlayerPrefs.SetInt("startingLivesPrice", 1000);
@@ -495,6 +514,13 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("timeScale", 1);
 
         PlayerPrefs.SetInt("timeScalePrice", 100);
+        */
+
+        PlayerPrefs.SetInt("playerLevel", 1);
+
+        PlayerPrefs.SetInt("MaxExp", 1000);
+
+        PlayerPrefs.SetFloat("multiplierMX", 1.5f);
 
         //PlayerPrefs.SetFloat("mass", 1);
 

@@ -5,6 +5,10 @@ using UnityEngine.UI;
 using TMPro;
 public class ExpSystem : MonoBehaviour
 {
+    // MaxExp multiplier
+    float multiplierMX = 1.5f;
+
+    [SerializeField] GameManager gameManager;
     [SerializeField]
     private int maxExp = 1000;
     public int MaxExp { 
@@ -30,6 +34,8 @@ public class ExpSystem : MonoBehaviour
         set
         {
             currentExp = value;
+
+            PlayerPrefs.SetInt("currentExp", currentExp);
         }
     }
 
@@ -46,11 +52,13 @@ public class ExpSystem : MonoBehaviour
 
     void Start()
     {
-        playerLevel = 1;
+        playerLevel = PlayerPrefs.GetInt("playerLevel");
 
-        MaxExp = 1000;
+        MaxExp = PlayerPrefs.GetInt("MaxExp");
 
-        currentExp = 0;
+        CurrentExp = PlayerPrefs.GetInt("currentExp");
+
+        multiplierMX = PlayerPrefs.GetFloat("multiplierMX");
     }
 
 
@@ -58,10 +66,10 @@ public class ExpSystem : MonoBehaviour
     {
         //updatedExp += expIncreasedPerSecond * Time.deltaTime;
 
-        ExpBar.fillAmount = 1 - (float)currentExp / MaxExp;
+        ExpBar.fillAmount = 1 - (float)CurrentExp / MaxExp;
 
         levelText.text = $"level {playerLevel}";
-        if (currentExp >= MaxExp)
+        if (CurrentExp >= MaxExp)
         {
             levelText.text = "Next Level";
 
@@ -74,13 +82,22 @@ public class ExpSystem : MonoBehaviour
     {
         playerLevel++;
 
-        currentExp = 0;
+        CurrentExp = 0;
 
-        MaxExp = (int)((float)MaxExp * 1.5f);
+        MaxExp = (int)((float)MaxExp * multiplierMX);
+
+        multiplierMX *= 1.5f;
 
         MaxExp -= MaxExp % 25;
 
         button.interactable = false;
+
+        PlayerPrefs.SetInt("playerLevel", playerLevel);
+        PlayerPrefs.SetInt("MaxExp", MaxExp);
+
+        PlayerPrefs.SetFloat("multiplierMX", multiplierMX);
+
+        gameManager.IncrementScore(maxExp, false);
     }
 
 }

@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: offlineRevenue
   m_EditorClassIdentifier: 
   statName: 8
-  increment: 0.25
-  _incrementPrice: 100
+  increment: 1
+  increment2: 50
+  startingPrice: 100
+  startingValue: 1
+  _incrementPrice: 1300

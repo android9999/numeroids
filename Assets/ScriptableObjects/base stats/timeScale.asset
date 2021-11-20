@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: timeScale
   m_EditorClassIdentifier: 
   statName: 9
-  increment: 0.07
+  increment: 1
+  increment2: 50
+  startingPrice: 100
+  startingValue: 1
   _incrementPrice: 100
