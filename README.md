@@ -1,10 +1,7 @@
-# Asteroids (2D)
+# numeroids
+> numeroids is an idle game with the style style of asteroid (the unique difference is that asteroids are pentagon), I made it from another project by [@adamgraham](https://github.com/adamgraham), and I found his project through this live - [**Tutorial Video**](https://youtu.be/cIeWhztKyAg).
 
-> Asteroids is a space-themed multidirectional shooter arcade game designed by Lyle Rains, Ed Logg, and Dominic Walsh and released in November 1979 by Atari, Inc. The player controls a single spaceship in an asteroid field which is periodically traversed by flying saucers. The object of the game is to shoot and destroy the asteroids and saucers, while not colliding with either, or being hit by the saucers' counter-fire. The game becomes harder as the number of asteroids increases.
 
-- **Difficulty**: Intermediate
-- **Topics**: Multi-directional Shooting, Random Generation
-- **Version**: Unity 2019.4 LTS
-- **Author**: [@adamgraham](https://github.com/adamgraham)
-- [**Tutorial Video**](https://youtu.be/cIeWhztKyAg)
-- [**Source Code**](https://github.com/zigurous/unity-asteroids-tutorial)
+- [**Original project**](https://github.com/zigurous/unity-asteroids-tutorial)
+- **Topics**: idle game
+- **Version**: Unity 2021.3.21f1
